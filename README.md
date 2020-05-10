@@ -75,9 +75,9 @@ and you will understand how the updates work and what is printed.
 You can call the script with the following arguments:
 
 - ### `tail <STANDBY_LABEL> <SECONDS>`
-This is the command which you want to put in your polybar `exec` field.
-It runs an infinite loop that calls the [`update`](#update-pid) routine every `SECONDS` seconds.
-We will call the process which runs this `tail` routine the *tail process*.
+  This is the command which you want to put in your polybar `exec` field.
+  It runs an infinite loop that calls the [`update`](#update-pid) routine every `SECONDS` seconds.
+  We will call the process which runs this `tail` routine the *tail process*.
 
 - ### `update <PID>`
   This routine is executed automatically inside the tail process every few seconds.
@@ -103,14 +103,14 @@ Example:<br>
   label and sets its action to `ACTION`.
 
 - ### `increase <SECONDS>`
-If there is no timer running, nothing happens and it exits with 1.
-If there is a timer running, it is extended by `SECONDS` seconds. This
-can also be negative and the the timer gets shortened. Then it exits
-with 0.
+  If there is no timer running, nothing happens and it exits with 1.
+  If there is a timer running, it is extended by `SECONDS` seconds. This
+  can also be negative and the the timer gets shortened. Then it exits
+  with 0.
 
 - ### `cancel`
-If there is a timer running it gets canceled. The `ACTION` will not get
-executed.
+  If there is a timer running it gets canceled. The `ACTION` will not get
+  executed.
 
 ## Tips & Tricks
 
