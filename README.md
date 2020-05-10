@@ -80,19 +80,16 @@ It runs an infinite loop that calls the [`update`](#update-pid) routine every `S
 We will call the process which runs this `tail` routine the *tail process*.
 
 - ### `update <PID>`
-This routine is executed automatically inside the tail process every few seconds.
-However, you will most probably want to call it inside the tail process
-also manually (i.e. in addition to the regular updates) after you have
-just executed some of the commands below. For example, if you have
-created a timer with [`new`](#new-minutes-timer_label-action), you want to call [`update`](#update-pid) on the tail process right after. `PID` needs to be the pid of the tail process.
-(this is [provided by polybar with `%pid%`](https://github.com/polybar/polybar/wiki/Module:-script#examples))<br>
-The following action is executed in the tail process
-every few seconds and whenever you call 'update' with the pid of the tail process:
-  1. If there is a timer running and its expiry time is <= now then it
-executes `ACTION` and kills the timer.
-  2. It prints the current output. This is either
-`<TIMER_LABEL><minutes left>` if there is a timer running or
-`<STANDBY_LABEL>` if no timer is running.
+  This routine is executed automatically inside the tail process every few seconds.
+  However, you will most probably want to call it inside the tail process
+  also manually (i.e. in addition to the regular updates) after you have
+  just executed some of the commands below. For example, if you have
+  created a timer with [`new`](#new-minutes-timer_label-action), you want to call [`update`](#update-pid) on the tail process right after. `PID` needs to be the pid of the tail process.
+  (this is [provided by polybar with `%pid%`](https://github.com/polybar/polybar/wiki/Module:-script#examples))<br>
+  The following action is executed in the tail process
+  every few seconds and whenever you call 'update' with the pid of the tail process:
+  1. If there is a timer running and its expiry time is <= now then it executes `ACTION` and kills the timer.
+  2. It prints the current output. This is either `<TIMER_LABEL><minutes left>` if there is a timer running or `<STANDBY_LABEL>` if no timer is running.
 
 These were the basis commands to handle the technical side. Now with the
 following commands you can control the timer. If you want the bar to
