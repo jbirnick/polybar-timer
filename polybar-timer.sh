@@ -17,7 +17,6 @@ timerAction () { cat /tmp/polybar-timer/action ; }
 secondsLeft () { echo $(( $(timerExpiry) - $(now) )) ; }
 minutesLeft () { echo $(( ( $(secondsLeft)  + 59 ) / 60 )) ; }
 
-
 printExpiryTime () { dunstify -u low -r -12345 "Timer expires at $( date -d "$(secondsLeft) sec" +%H:%M)" ;}
 
 deleteExpiryTime () { dunstify -C -12345 ; }
