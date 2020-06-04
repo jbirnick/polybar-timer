@@ -32,7 +32,7 @@ updateTail () {
   then
     echo "$(timerLabel) $(minutesLeft)"
   else
-    echo ${STANDBY_LABEL}
+    echo "${STANDBY_LABEL}"
   fi
 }
 
@@ -57,15 +57,15 @@ case $1 in
   new)
     killTimer
     mkdir /tmp/polybar-timer
-    echo $(( $(now) + 60*${2} )) > /tmp/polybar-timer/expiry
-    echo $3 > /tmp/polybar-timer/label
-    echo $4 > /tmp/polybar-timer/action
+    echo "$(( $(now) + 60*${2} ))" > /tmp/polybar-timer/expiry
+    echo "${3}" > /tmp/polybar-timer/label
+    echo "${4}" > /tmp/polybar-timer/action
     printExpiryTime
     ;;
   increase)
     if timerRunning
     then
-      echo $(( $(cat /tmp/polybar-timer/expiry) + ${2} )) > /tmp/polybar-timer/expiry
+      echo "$(( $(cat /tmp/polybar-timer/expiry) + ${2} ))" > /tmp/polybar-timer/expiry
     else
       exit 1
     fi

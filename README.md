@@ -33,7 +33,7 @@ But this is not necessary. (Just beautiful.) If you do not use Dunst than still 
 
 1. Download [polybar-timer.sh](https://raw.githubusercontent.com/jbirnick/polybar-timer/master/polybar-timer.sh) from this repo.
 2. Make it executable. (`chmod +x polybar-timer.sh`)
-3. Copy-paste the example configuration from below into you polybar config.
+3. Copy-paste the [example configuration](#example-configuration) from below into you polybar config.
 4. Customize. (see [Customization section](#customization))
 
 ## Example Configuration
