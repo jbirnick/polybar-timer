@@ -2,7 +2,7 @@
 
 This script implements a **simple** and **customizable** timer for your bar.
 
-- specify command to execute when timer expires (e.g. notify-send, shell script, ...)
+- specify a command to execute when the timer expires (e.g. notify-send, shell script, ...)
 - interactive:
   * e.g. scroll to increase / decrease timer
   * click to start predefined timers
@@ -22,7 +22,7 @@ This script implements a **simple** and **customizable** timer for your bar.
 Even though the repo is named [`polybar-timer`](#), it is a general script and you can use it for every bar.
 You can **customize behaviour and appearance in a simple way**.
 
-An example use case would be a pomodoro timer and/or self-reminders when next meeting begins.
+Use cases: pomodoro timer, self-reminder when next meeting begins, tea/pasta timer, ...
 
 ## Dependencies
 
@@ -65,12 +65,12 @@ If you want to do some really specific stuff and add some functionality, just ed
 
 ## Documentation
 
-Notation: `<...>` are necessary arguments and `[...=DEFAULTVALUE]` are optional
+Notation: `<...>` are necessary arguments and `[...=DEFAULTVALUE]` are optional ones,
 and if you do not specify them their `DEFAULTVALUE` is used.
 
-If want to understand or edit the script I highly recommend to run a tail process
+If want to understand or edit the script I highly recommend to run a *tail process* (see below)
 in a terminal window without any bar. This way you will see what the polybar sees
-and you will understand how the updates work and what is printed.
+and you will understand how the updates work.
 
 You can call the script with the following arguments:
 
