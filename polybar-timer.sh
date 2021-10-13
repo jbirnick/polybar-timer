@@ -9,26 +9,31 @@ now () { date --utc +%s; }
 
 killTimer () { rm -rf /tmp/polybar-timer ; }
 timerRunning () { [ -e /tmp/polybar-timer/ ] ; }
+timerPaused () { [ -f /tmp/polybar-timer/paused ] ; }
 
 timerExpiry () { cat /tmp/polybar-timer/expiry ; }
 timerLabel () { cat /tmp/polybar-timer/label ; }
 timerAction () { cat /tmp/polybar-timer/action ; }
 
+secondsLeftWhenPaused () { cat /tmp/polybar-timer/paused ; }
+minutesLeftWhenPaused () {  echo $(( ( $(secondsLeftWhenPaused)  + 59 ) / 60 )) ; }
 secondsLeft () { echo $(( $(timerExpiry) - $(now) )) ; }
 minutesLeft () { echo $(( ( $(secondsLeft)  + 59 ) / 60 )) ; }
 
 printExpiryTime () { dunstify -u low -r -12345 "Timer expires at $( date -d "$(secondsLeft) sec" +%H:%M)" ;}
+printPaused () { dunstify -u low -r -12345 "Timer is now paused" ; }
 
 deleteExpiryTime () { dunstify -C -12345 ; }
 
 updateTail () {
-  if timerRunning && [ $(minutesLeft) -le 0 ]
+  if timerPaused
+  then
+    echo "$(timerLabel) $(minutesLeftWhenPaused)"
+  elif timerRunning && [ $(minutesLeft) -le 0 ]
   then
     eval $(timerAction)
     killTimer
-  fi
-
-  if timerRunning
+  elif timerRunning
   then
     echo "$(timerLabel) $(minutesLeft)"
   else
@@ -74,6 +79,23 @@ case $1 in
   cancel)
     killTimer
     deleteExpiryTime
+    ;;
+  pause)
+    if timerRunning
+    then
+      if timerPaused
+      then
+        echo "$(( $(now) + $(secondsLeftWhenPaused) ))" > /tmp/polybar-timer/expiry
+        rm -f /tmp/polybar-timer/paused
+        printExpiryTime
+      else
+        secondsLeft > /tmp/polybar-timer/paused
+        rm -f /tmp/polybar-timer/expiry
+        printPaused
+      fi
+    else
+      exit 1
+    fi
     ;;
   *)
     echo "Please read the manual at https://github.com/jbirnick/polybar-timer ."
