@@ -111,6 +111,9 @@ Example:<br>
 - ### `cancel`
   If there is a timer running it gets canceled. The `ACTION` will not get
   executed.
+  
+- ### `pause`
+  If there is a timer running it's paused. If there is a timer running which is already paused, it restarts. 
 
 ## Tips & Tricks
 
