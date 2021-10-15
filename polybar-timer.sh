@@ -8,11 +8,12 @@
 now () { date --utc +%s; }
 
 killTimer () { rm -rf /tmp/polybar-timer ; }
-timerRunning () { [ -e /tmp/polybar-timer/ ] ; }
+timerSet () { [ -e /tmp/polybar-timer/ ] ; }
 timerPaused () { [ -f /tmp/polybar-timer/paused ] ; }
 
 timerExpiry () { cat /tmp/polybar-timer/expiry ; }
-timerLabel () { cat /tmp/polybar-timer/label ; }
+timerLabelRunning () { cat /tmp/polybar-timer/label_running ; }
+timerLabelPaused () { cat /tmp/polybar-timer/label_paused ; }
 timerAction () { cat /tmp/polybar-timer/action ; }
 
 secondsLeftWhenPaused () { cat /tmp/polybar-timer/paused ; }
@@ -21,21 +22,30 @@ secondsLeft () { echo $(( $(timerExpiry) - $(now) )) ; }
 minutesLeft () { echo $(( ( $(secondsLeft)  + 59 ) / 60 )) ; }
 
 printExpiryTime () { dunstify -u low -r -12345 "Timer expires at $( date -d "$(secondsLeft) sec" +%H:%M)" ;}
-printPaused () { dunstify -u low -r -12345 "Timer is now paused" ; }
-
-deleteExpiryTime () { dunstify -C -12345 ; }
+printPaused () { dunstify -u low -r -12345 "Timer paused" ; }
+removePrinting () { dunstify -C -12345 ; }
 
 updateTail () {
-  if timerPaused
+  # check wether timer is expired
+  if timerSet
   then
-    echo "$(timerLabel) $(minutesLeftWhenPaused)"
-  elif timerRunning && [ $(minutesLeft) -le 0 ]
+    if { timerPaused && [ $(minutesLeftWhenPaused) -le 0 ] ; } || { ! timerPaused && [ $(minutesLeft) -le 0 ] ; }
+    then
+      eval $(timerAction)
+      killTimer
+      removePrinting
+    fi
+  fi
+
+  # update output
+  if timerSet
   then
-    eval $(timerAction)
-    killTimer
-  elif timerRunning
-  then
-    echo "$(timerLabel) $(minutesLeft)"
+    if timerPaused
+    then
+      echo "$(timerLabelPaused) $(minutesLeftWhenPaused)"
+    else
+      echo "$(timerLabelRunning) $(minutesLeft)"
+    fi
   else
     echo "${STANDBY_LABEL}"
   fi
@@ -63,25 +73,31 @@ case $1 in
     killTimer
     mkdir /tmp/polybar-timer
     echo "$(( $(now) + 60*${2} ))" > /tmp/polybar-timer/expiry
-    echo "${3}" > /tmp/polybar-timer/label
-    echo "${4}" > /tmp/polybar-timer/action
+    echo "${3}" > /tmp/polybar-timer/label_running
+    echo "${4}" > /tmp/polybar-timer/label_paused
+    echo "${5}" > /tmp/polybar-timer/action
     printExpiryTime
     ;;
   increase)
-    if timerRunning
+    if timerSet
     then
-      echo "$(( $(cat /tmp/polybar-timer/expiry) + ${2} ))" > /tmp/polybar-timer/expiry
+      if timerPaused
+      then
+        echo "$(( $(secondsLeftWhenPaused) + ${2} ))" > /tmp/polybar-timer/paused
+      else
+        echo "$(( $(timerExpiry) + ${2} ))" > /tmp/polybar-timer/expiry
+        printExpiryTime
+      fi
     else
       exit 1
     fi
-    printExpiryTime
     ;;
   cancel)
     killTimer
-    deleteExpiryTime
+    removePrinting
     ;;
-  pause)
-    if timerRunning
+  togglepause)
+    if timerSet
     then
       if timerPaused
       then

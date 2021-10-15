@@ -46,18 +46,16 @@ type = custom/script
 exec = /path/to/polybar-timer.sh tail 'TIMER' 5
 tail = true
 
-click-left = /path/to/polybar-timer.sh new 25 'Pomo session' 'notify-send "Session finished"' ; /path/to/polybar-timer.sh update %pid%
+click-left = /path/to/polybar-timer.sh new 25 'Pomo session' 'Paused' 'notify-send "Session finished"' ; /path/to/polybar-timer.sh update %pid%
 click-middle = /path/to/polybar-timer.sh cancel ; /path/to/polybar-timer.sh update %pid%
-click-right = /path/to/polybar-timer.sh new 5 'Pomo break' 'notify-send "Break finished"' ; /path/to/polybar-timer.sh update %pid%
-scroll-up = /path/to/polybar-timer.sh increase 60 || /path/to/polybar-timer.sh new 1 'TIMER:' 'notify-send -u critical "Timer expired."' ; /path/to/polybar-timer.sh update %pid%
+click-right = /path/to/polybar-timer.sh togglepause ; /path/to/polybar-timer.sh update %pid%
+scroll-up = /path/to/polybar-timer.sh increase 60 || /path/to/polybar-timer.sh new 1 'TIMER' 'PAUSED' 'notify-send -u critical "Timer expired."' ; /path/to/polybar-timer.sh update %pid%
 scroll-down = /path/to/polybar-timer.sh increase -60 ; /path/to/polybar-timer.sh update %pid%
 ```
 
 ## Customization
 
-The example configuration implements a 25min "pomodoro session" timer with left click, a 5min
-"pomodoro break" timer with right click and a normal timer by just scrolling up
-from the standby mode.
+The example configuration implements a 25min "pomodoro session" timer with left click, pausing with right click, canceling with middle click, and a normal timer by just scrolling up from the standby mode.
 
 You can customize the different strings, numbers and actions to your own flavor and needs. To understand what the commands do and to implement some different behaviour see the [documentation](#documentation).
 
@@ -97,23 +95,23 @@ to update immediately after a change, you should call [`update`](#update-pid) ri
 Example:<br>
 `polybar.sh increase 60 ; polybar.sh update <pid of tail process>'`
 
-- ### `new <MINUTES> <TIMER_LABEL> [ACTION=""]`
+- ### `new <MINUTES> <TIMER_LABEL_RUNNING> <TIMER_LABEL_PAUSED> [ACTION=""]`
   1. If there is a timer already running it gets killed.
-  2. Creates a timer of length `MINUTES` minutes and `TIMER_LABEL` as its
-  label and sets its action to `ACTION`.
+  2. Creates a timer of length `MINUTES` minutes and `TIMER_LABEL_RUNNING` as its
+  label and sets its action to `ACTION`. If this timer gets paused at some point, the label will be replaced by `TIMER_LABEL_PAUSED`.
 
 - ### `increase <SECONDS>`
-  If there is no timer running, nothing happens and it exits with 1.
-  If there is a timer running, it is extended by `SECONDS` seconds. This
-  can also be negative and the the timer gets shortened. Then it exits
+  If there is no timer set, nothing happens and it exits with 1.
+  If there is a timer set, it is extended by `SECONDS` seconds. This
+  can also be negative in that case shortens the timer. Then it exits
   with 0.
+
+- ### `togglepause`
+  If there is no timer set at all it exits with 1. If there is a timer running it gets paused and it exits with 0. If there is a timer set which is already paused, it gets resumed and it exits with 0.
 
 - ### `cancel`
   If there is a timer running it gets canceled. The `ACTION` will not get
   executed.
-  
-- ### `pause`
-  If there is a timer running it's paused. If there is a timer running which is already paused, it restarts. 
 
 ## Tips & Tricks
 
