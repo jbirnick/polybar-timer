@@ -72,12 +72,12 @@ and you will understand how the updates work.
 
 You can call the script with the following arguments:
 
-- ### `tail <STANDBY_LABEL> <SECONDS>`
+- #### `tail <STANDBY_LABEL> <SECONDS>`
   This is the command which you want to put in your polybar `exec` field.
   It runs an infinite loop that calls the [`update`](#update-pid) routine every `SECONDS` seconds.
   We will call the process which runs this `tail` routine the *tail process*.
 
-- ### `update <PID>`
+- #### `update <PID>`
   This routine is executed automatically inside the tail process every few seconds.
   However, you will most probably want to call it inside the tail process
   also manually (i.e. in addition to the regular updates) after you have
@@ -95,21 +95,21 @@ to update immediately after a change, you should call [`update`](#update-pid) ri
 Example:<br>
 `polybar.sh increase 60 ; polybar.sh update <pid of tail process>'`
 
-- ### `new <MINUTES> <TIMER_LABEL_RUNNING> <TIMER_LABEL_PAUSED> [ACTION=""]`
+- #### `new <MINUTES> <TIMER_LABEL_RUNNING> <TIMER_LABEL_PAUSED> [ACTION=""]`
   1. If there is a timer already running it gets killed.
   2. Creates a timer of length `MINUTES` minutes and `TIMER_LABEL_RUNNING` as its
   label and sets its action to `ACTION`. If this timer gets paused at some point, the label will be replaced by `TIMER_LABEL_PAUSED`.
 
-- ### `increase <SECONDS>`
+- #### `increase <SECONDS>`
   If there is no timer set, nothing happens and it exits with 1.
   If there is a timer set, it is extended by `SECONDS` seconds. This
   can also be negative in that case shortens the timer. Then it exits
   with 0.
 
-- ### `togglepause`
+- #### `togglepause`
   If there is no timer set at all it exits with 1. If there is a timer running it gets paused and it exits with 0. If there is a timer set which is already paused, it gets resumed and it exits with 0.
 
-- ### `cancel`
+- #### `cancel`
   If there is a timer running it gets canceled. The `ACTION` will not get
   executed.
 
