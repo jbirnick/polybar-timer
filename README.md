@@ -7,6 +7,7 @@ This script implements a **simple** and **customizable** timer for your bar.
   * e.g. scroll to increase / decrease timer
   * click to start predefined timers
   * while changing a timer a notification displays when the timer will expire
+  * pause timer
 - different icons for different kind of timers
 
 ![screenshot set timer](screenshots/setTimer.gif) (set a timer)
