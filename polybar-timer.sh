@@ -26,7 +26,7 @@ printPaused () { dunstify -u low -r -12345 "Timer paused" ; }
 removePrinting () { dunstify -C -12345 ; }
 
 updateTail () {
-  # check wether timer is expired
+  # check whether timer is expired
   if timerSet
   then
     if { timerPaused && [ $(minutesLeftWhenPaused) -le 0 ] ; } || { ! timerPaused && [ $(minutesLeft) -le 0 ] ; }
