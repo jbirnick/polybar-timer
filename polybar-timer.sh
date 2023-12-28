@@ -17,7 +17,7 @@ timerLabelPaused () { cat /tmp/polybar-timer/label_paused ; }
 timerAction () { cat /tmp/polybar-timer/action ; }
 
 secondsLeftWhenPaused () { cat /tmp/polybar-timer/paused ; }
-minutesLeftWhenPaused () {  echo $(( ( $(secondsLeftWhenPaused)  + 59 ) / 60 )) ; }
+minutesLeftWhenPaused () { echo $(( ( $(secondsLeftWhenPaused)  + 59 ) / 60 )) ; }
 secondsLeft () { echo $(( $(timerExpiry) - $(now) )) ; }
 minutesLeft () { echo $(( ( $(secondsLeft)  + 59 ) / 60 )) ; }
 
