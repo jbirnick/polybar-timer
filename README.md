@@ -21,6 +21,7 @@ This script implements a **simple** and **customizable** timer for your bar.
 ![screenshot see expiry time](screenshots/expiryTimePreview.gif) (watch expiry time when you change a timer)
 
 Even though the repo is named [`polybar-timer`](#), it is a general script and you can use it for every bar.
+In particular, if you use [**waybar**](https://github.com/Alexays/Waybar), then you can find a waybar-specific implementation of this timer [here](https://github.com/jbirnick/waybar-timer).
 You can **customize behaviour and appearance in a simple way**.
 
 Use cases: pomodoro timer, self-reminder when next meeting begins, tea/pasta timer, ...
@@ -116,7 +117,7 @@ to update immediately after a change, you should call [`update`](#update-pid) ri
 Note, when there is no timer active, then [`increase`](#increase-seconds) does nothing.
 So you might want to use the following command as a replacement for [`increase`](#increase-seconds).
 ```
-polybar-timer.sh increase 60 || polybar-timer.sh new 1 'mytimer' 'notify-send "Timer expired."'
+polybar-timer.sh increase 60 || polybar-timer.sh new 1 'mytimer' 'paused' 'notify-send "Timer expired."'
 ```
 It increases the existing timer if it's active, and creates a timer with label
 "mytimer" of lengths 1 minute if there is no timer currently running.
