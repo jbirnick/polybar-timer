@@ -60,10 +60,12 @@ Script usage: $0 [COMMAND] args ...
 
 COMMAND:
   new [m] [rLabel] [pLabel] [action]    - Create a new timer with [m] minutes. Printed as "[rLabel|pLabel] [m]".
-                                         [rLabel] is shown while the timer is running, and [pLabel] is shown while the timer is paused.
-                                         The action will be executed when the timer expires.
-  tail [label] [s]                      - Print the time left on the timer, followed by the [label], every [s] seconds.
-  update [pid]                          - Update a running [tail] command identified by its process id [pid].
+                                          [rLabel] is shown while the timer is running, and [pLabel] is shown while the timer is paused.
+                                          The action will be executed when the timer expires.
+  tail [label] [s]                      - Print the [label], followed by the time left on the timer, every [s] seconds.
+                                          This may be used for the exec field in polybar.
+  update [pid]                          - Update a running [tail] command identified by its PID [pid].
+                                          The PID is provided by polybar with %pid%.
   increase [s]                          - Increase the timer by [s] seconds if it exists.
   togglepause                           - Pause a running timer; Start a paused timer.
   cancel                                - Abort a timer if it exists.
