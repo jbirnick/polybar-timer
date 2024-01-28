@@ -68,7 +68,7 @@ COMMAND:
                                           The PID is provided by polybar with %pid%.
   increase [s]                          - Increase the timer by [s] seconds if it exists.
   togglepause                           - Pause a running timer; Start a paused timer.
-  cancel                                - Abort a timer if it exists.
+  cancel                                - Cancel a timer if it exists.
   help                                  - Print this help.
 
 EOF
