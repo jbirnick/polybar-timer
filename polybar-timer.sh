@@ -51,6 +51,27 @@ updateTail () {
   fi
 }
 
+usage() {
+    cat <<EOF
+A script to create, start, and control a timer.
+Designed for use within polybar. Check out https://github.com/jbirnick/polybar-timer#example-configuration for an example.
+
+Script usage: $0 [COMMAND] args ...
+
+COMMAND:
+  new [m] [rLabel] [pLabel] [action]    - Create a new timer with [m] minutes. Printed as "[rLabel|pLabel] [m]".
+                                         [rLabel] is shown while the timer is running, and [pLabel] is shown while the timer is paused.
+                                         The action will be executed when the timer expires.
+  tail [label] [s]                      - Print the time left on the timer, followed by the [label], every [s] seconds.
+  update [pid]                          - Update a running [tail] command identified by its process id [pid].
+  increase [s]                          - Increase the timer by [s] seconds if it exists.
+  togglepause                           - Pause a running timer; Start a paused timer.
+  cancel                                - Abort a timer if it exists.
+  help                                  - Print this help.
+
+EOF
+}
+
 ## MAIN CODE
 
 case $1 in
@@ -113,7 +134,11 @@ case $1 in
       exit 1
     fi
     ;;
+  help|-h|--help)
+    usage
+    ;;
   *)
+    echo -e "For usage type: $0 help\n"
     echo "Please read the manual at https://github.com/jbirnick/polybar-timer ."
     ;;
 esac
