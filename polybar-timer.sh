@@ -21,9 +21,9 @@ minutesLeftWhenPaused () { echo $(( ( $(secondsLeftWhenPaused)  + 59 ) / 60 )) ;
 secondsLeft () { echo $(( $(timerExpiry) - $(now) )) ; }
 minutesLeft () { echo $(( ( $(secondsLeft)  + 59 ) / 60 )) ; }
 
-printExpiryTime () { dunstify -u low -r -12345 "Timer expires at $( date -d "$(secondsLeft) sec" +%H:%M)" ;}
-printPaused () { dunstify -u low -r -12345 "Timer paused" ; }
-removePrinting () { dunstify -C -12345 ; }
+printExpiryTime () { notify-send -u low -r -12345 "Timer expires at $( date -d "$(secondsLeft) sec" +%H:%M)" ;}
+printPaused () { notify-send -u low -r -12345 "Timer paused" ; }
+removePrinting () { notify-send -C -12345 ; }
 
 updateTail () {
   # check whether timer is expired

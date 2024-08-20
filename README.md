@@ -28,8 +28,7 @@ Use cases: pomodoro timer, self-reminder when next meeting begins, tea/pasta tim
 
 ## Dependencies
 
-Inside the script `dunstify` is called to view the mentioned notification for the expiry time.
-But this is not necessary. (Just beautiful.) If you do not use Dunst then you need to edit two lines in the script according to [this issue](https://github.com/jbirnick/polybar-timer/issues/3), and still everything (but the preview of the expiry time) **will work fine without dependencies**.
+This script works perfectly **without any dependencies**.
 
 ## Installation
 
