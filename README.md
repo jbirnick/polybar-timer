@@ -121,7 +121,3 @@ polybar-timer.sh increase 60 || polybar-timer.sh new 1 'mytimer' 'paused' 'notif
 It increases the existing timer if it's active, and creates a timer with label
 "mytimer" of lengths 1 minute if there is no timer currently running.
 So now e.g. scrolling up also does something when there is no timer active - it starts a new timer!
-
-## Known Issues
-
-If you don't (want to) use `dunstify` please see the [dependencies section](#dependencies).
