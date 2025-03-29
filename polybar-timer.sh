@@ -31,7 +31,7 @@ updateTail () {
   then
     if { timerPaused && [ $(minutesLeftWhenPaused) -le 0 ] ; } || { ! timerPaused && [ $(minutesLeft) -le 0 ] ; }
     then
-      eval $(timerAction)
+      eval $(timerAction) 2>/dev/null 1>/dev/null
       killTimer
       removePrinting
     fi
